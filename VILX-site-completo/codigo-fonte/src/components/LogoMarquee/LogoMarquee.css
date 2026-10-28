@@ -1,0 +1,60 @@
+/* Sem bordas nem caixas: só os logos passando, com as pontas esmaecidas. */
+.logo-marquee {
+  --lm-h: clamp(48px, 5vw, 76px);
+  --lm-gap: clamp(56px, 7vw, 132px);
+  position: relative;
+  overflow: hidden;
+  padding: 12px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+.logo-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: var(--lm-gap);
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logo-marquee__item {
+  flex: none;
+  will-change: transform;
+}
+
+.logo-marquee__item img {
+  display: block;
+  width: auto;
+  height: calc(var(--lm-h) * var(--s, 1));
+  opacity: 0.86;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.4s;
+}
+
+.logo-marquee:hover .logo-marquee__item img {
+  opacity: 1;
+}
+
+/* movimento reduzido: composição estática, todos os logos visíveis */
+.logo-marquee.is-static {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.logo-marquee.is-static .logo-marquee__track {
+  width: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px clamp(32px, 4vw, 64px);
+  padding: 0 var(--gutter, 20px);
+}
+
+@media (max-width: 720px) {
+  .logo-marquee {
+    --lm-h: 44px;
+    --lm-gap: 48px;
+  }
+}

@@ -1,0 +1,10 @@
+/* Os pedaços precisam ser inline-block para aceitar deslocamento e rotação.
+   Nenhuma regra aqui esconde o texto: o estado inicial vem só do GSAP. */
+.scroll-reveal .sr-piece {
+  display: inline-block;
+}
+
+.scroll-reveal .sr-word {
+  display: inline-block;
+  white-space: nowrap;
+}
