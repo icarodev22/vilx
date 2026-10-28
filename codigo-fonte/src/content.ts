@@ -1,3 +1,5 @@
+import type { Brand } from './components/BrandIcon'
+
 // Todo o conteúdo factual vem do "VILX - RELEASE.pdf" (Canva, março/2026).
 // Nada aqui é inventado: se um dado não está no release, ele fica de fora
 // ou fica como `null` até ser confirmado.
@@ -48,11 +50,12 @@ export const story = [
   },
 ]
 
-export const stats = [
-  { value: '+500K', label: 'ouvintes mensais', platform: 'Spotify' },
-  { value: '+5M', label: 'de plays', platform: 'Spotify' },
-  { value: '+8M', label: 'de views', platform: 'YouTube' },
-  { value: '+100K', label: 'de criações', platform: 'TikTok' },
+export const stats: { value: string; label: string; platform: string; brand: Brand }[] = [
+  // brand: plataforma de origem, conforme o ícone ao lado de cada número no release
+  { value: '+500K', label: 'ouvintes mensais', platform: 'Spotify', brand: 'spotify' },
+  { value: '+5M', label: 'de plays', platform: 'Spotify', brand: 'spotify' },
+  { value: '+8M', label: 'de views', platform: 'YouTube', brand: 'youtube' },
+  { value: '+100K', label: 'de criações', platform: 'TikTok', brand: 'tiktok' },
 ]
 
 export type Release = {
