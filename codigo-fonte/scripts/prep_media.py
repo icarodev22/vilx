@@ -37,6 +37,3 @@ shows = {
 for k, f in hist.items(): save(Image.open(os.path.join(Z, f)), k, [960, 1600, 2200])
 for k, f in shows.items(): save(Image.open(os.path.join(Z, f)), k, [800, 1400])
 
-# covers cropped from the release (Spotify share cards, page 4)
-p = Image.open(os.path.join(S, 'pdfimg/c-001.jpg')); save(p.crop((26, 29, 386, 389)), 'capa-o-predio-vai-tremer', [360])
-t = Image.open(os.path.join(S, 'pdfimg/c-003.jpg')); save(t.crop((25, 25, 365, 365)), 'capa-toda-nua', [340])

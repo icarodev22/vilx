@@ -22,26 +22,17 @@ npm run audit:images   # confere a regra "nenhuma imagem repetida"
 
 ## Abertura 3D
 
-`src/components/intro/AvatarScene.ts`. O avatar não é uma imagem plana: cada pixel da arte original
-(`reference/vilx-avatar-original.jpg`) vira uma coluna 3D com profundidade própria, gerada por
-`scripts/voxelize.py` em `src/assets/avatar-voxels.json`:
+`src/components/intro/AvatarScene.ts`. O avatar não é uma imagem plana: cada pixel da arte original (`reference/vilx-avatar-original.jpg`) vira uma coluna 3D com profundidade própria, gerada por `scripts/voxelize.py` em `src/assets/avatar-voxels.json` (volume da cabeça pela silhueta, óculos à frente do rosto, cabelo em camada própria, cores originais). Montagem dos voxels na entrada, flutuação, rotação lenta, resposta ao cursor e ao toque, luz-chave com sombra, contraluz vermelho, lentes com reflexo, piso com reflexo e degradação automática se a taxa de quadros cair. Sem WebGL, entra uma versão 2D com o recorte da arte.
 
-- fundo vermelho e contorno branco removidos, ficando só a silhueta;
-- volume da cabeça a partir da silhueta (domo + distância até a borda);
-- óculos projetados à frente do rosto, cabelo numa camada própria;
-- cores = cores originais de cada pixel; nenhum traço novo é desenhado.
+Na saída (rolagem), a abertura esmaece sobre o fundo contínuo do site: a base do canvas se dissolve só durante a saída, então não há emenda com a História.
 
-A cena tem montagem dos voxels na entrada, flutuação, rotação lenta, resposta ao cursor e ao arrasto
-no toque, luz-chave com sombra, contraluz vermelho, luz orbitando, lentes com reflexo, piso
-translúcido com reflexo espelhado (desligado em aparelhos modestos) e degradação automática se a taxa
-de quadros cair. Sem WebGL, ou se o contexto for perdido, entra uma versão 2D com o recorte da arte
-(`src/assets/vilx-avatar-cutout.png`, gerado pelo mesmo script).
+## Fundo contínuo
 
-Para regerar os voxels:
+`src/components/AmbientBackground.tsx`. A linguagem do fundo da abertura (tinta vermelha líquida sobre preto) é uma única camada fixa atrás do site inteiro, do fim da abertura ao rodapé. Enquanto a abertura cobre a tela, ela não é desenhada. A luz muda de lugar conforme a rolagem e a intensidade cai fora da abertura, para o texto continuar legível sem caixas opacas. Renderiza em baixa resolução a ~30 fps, só com a aba visível; com movimento reduzido fica parada; sem WebGL, vira um gradiente estático com a mesma atmosfera.
 
-```bash
-python3 scripts/voxelize.py reference/vilx-avatar-original.jpg src/assets/avatar-voxels.json /tmp/depth.png src/assets/vilx-avatar-cutout.png
-```
+## Lançamentos
+
+`src/components/ReleasePlayers/`. Três players oficiais do Spotify (O Prédio Vai Tremer, Toda Nua, Sumir Com VC), configurados em `tracks` (`src/content.ts`). Capa, nome, artistas e controles são os do próprio Spotify. Desktop: três colunas. Celular e tablet: carrossel com um player por vez, deslize nativo (funciona começando o gesto em cima do player), setas, indicadores e teclado, em ciclo contínuo (reordenação por CSS `order`, sem recriar iframes). Sem avanço automático: nunca troca de música durante uma reprodução.
 
 ## FlexCarousel
 
@@ -79,8 +70,6 @@ As fotos foram otimizadas para WebP por `scripts/prep_media.py` (História até 
 | História | historia-lua | PART5 VILACAPrancheta 1.jpg |
 | História | historia-vermelho | PART2 VILACAPrancheta 1.jpg |
 | História | historia-olhar | PART1 VILACAPrancheta 2.jpg |
-| Lançamentos | capa-o-predio-vai-tremer | card do Spotify no release, p. 4 |
-| Lançamentos | capa-toda-nua | card do Spotify no release, p. 4 |
 | Shows | show-esbornia-recife | Esbórnia Recife.jpg |
 | Shows | show-pre-reveillon-bp-fortaleza | Pré Réveillon BP _ Fortaleza.jpg |
 | Shows | show-aniversario-kaio-jorge | Aniversário Kaio Jorge.jpg |
@@ -93,8 +82,8 @@ PART3 Prancheta 2, PART5 Prancheta 2, PART6 Prancheta 1 e 5.
 
 ## Pendências de conteúdo
 
+
+
 - **E-mail de contato**: não consta nos materiais. Preencha `links.email` em `src/content.ts` e o
   canal aparece na seção Contato.
-- **Capa de "Sumir Com VC"**: não fornecida; a faixa usa uma arte tipográfica temporária.
-- **Capas em alta resolução**: as capas atuais vêm dos cards do release (~360 px).
 - **Eventos das fotos SaveClip**: sem identificação, ficam com a legenda neutra "Ao vivo".

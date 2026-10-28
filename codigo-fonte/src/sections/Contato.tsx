@@ -1,6 +1,5 @@
 import { artist, links } from '../content'
 import { Arrow } from '../components/Arrow'
-import { FluidField } from '../components/FluidField'
 import { BrandIcon, type Brand } from '../components/BrandIcon'
 import { ScrollReveal } from '../components/ScrollReveal/ScrollReveal'
 import logoVermelho from '../assets/brand/logo-vermelho.png'
@@ -17,7 +16,6 @@ export function Contato() {
   ]
   return (
     <section id="contato" className="contato" aria-labelledby="contato-title">
-      <FluidField className="contato__fluid" />
       <div className="contato__inner">
         <p className="eyebrow">
           <span className="eyebrow__n">04</span>Contato
@@ -34,8 +32,15 @@ export function Contato() {
           <ScrollReveal className="t-lede contato__lede" mode="once" stagger={0.02} baseOpacity={0} baseOffset={10}>
             Shows, festas e eventos. Fale direto com o escritório do artista para agenda e propostas.
           </ScrollReveal>
-          <a className="btn btn--red contato__cta" href={links.booking} target="_blank" rel="noopener noreferrer" data-reveal>
-            Falar com o escritório no WhatsApp <Arrow />
+          <a
+            className="btn btn--red contato__cta"
+            href={links.booking}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contratar VILX pelo WhatsApp do escritório (abre em nova aba)"
+            data-reveal
+          >
+            Contratar VILX <Arrow />
           </a>
         </div>
 

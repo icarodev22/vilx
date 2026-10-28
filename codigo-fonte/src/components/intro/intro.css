@@ -3,7 +3,10 @@
   position: relative;
   height: 175vh;
   height: 175svh;
-  background: var(--ink);
+  /* sem fundo chapado: enquanto a abertura está na tela o canvas (opaco)
+     cobre tudo; quando ela esmaece na saída, aparece o fundo contínuo do
+     site em vez de um bloco preto — sem emenda com a História */
+  background: transparent;
 }
 
 .intro__stage {
@@ -26,6 +29,10 @@
 
 .intro--3d .intro__canvas {
   opacity: calc(1 - var(--p) * 0.85);
+  /* saída: a base do canvas se dissolve no fundo contínuo. Em --p = 0 a
+     máscara é nula: a abertura aparece exatamente como sempre */
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--p) * 55%), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--p) * 55%), transparent 100%);
   animation: intro-in 1.4s var(--ease-out) backwards;
 }
 
@@ -44,7 +51,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 0%, var(--ink) 92%);
+  /* véu de saída: escurece como antes, mas sem fechar no preto total,
+     para se fundir ao fundo contínuo da próxima seção */
+  background: linear-gradient(to bottom, transparent 0%, rgba(7, 3, 4, 0.5) 55%, rgba(7, 3, 4, 0) 100%);
   opacity: calc(var(--p) * 1.4 - 0.25);
   pointer-events: none;
 }

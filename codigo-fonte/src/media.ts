@@ -4,7 +4,7 @@
 
 export type Media = {
   id: string
-  section: 'historia' | 'lancamentos' | 'shows'
+  section: 'historia' | 'shows'
   source: string // arquivo original recebido
   w: number
   h: number
@@ -52,9 +52,6 @@ export const media = {
   historiaVermelho: m('historia-vermelho', 'historia', 'PART2 VILACAPrancheta 1.jpg', 4000, 6000, HIST, 'VILX sorrindo, sentado diante de uma luz vermelha', '50% 35%'),
   historiaLua: m('historia-lua', 'historia', 'PART5 VILACAPrancheta 1.jpg', 4000, 6000, HIST, 'VILX sentado em uma cadeira diante de um círculo de luz', '50% 55%'),
 
-  // Lançamentos — capas recortadas dos cards do release (maior versão disponível)
-  capaPredio: m('capa-o-predio-vai-tremer', 'lancamentos', 'VILX - RELEASE.pdf (p. 4, card O Prédio Vai Tremer)', 360, 360, [360], 'Capa de O Prédio Vai Tremer'),
-  capaTodaNua: m('capa-toda-nua', 'lancamentos', 'VILX - RELEASE.pdf (p. 4, card Toda Nua)', 340, 340, [340], 'Capa de Toda Nua'),
 
   // Shows
   showEsbornia: m('show-esbornia-recife', 'shows', 'Esbórnia Recife.jpg', 2774, 4160, [800, 1400], 'VILX nos decks sob luzes rosa no Esbórnia Recife', '50% 40%'),
@@ -73,11 +70,6 @@ export function srcSet(item: Media) {
 
 export function src(item: Media) {
   return item.srcset[item.srcset.length - 1][0]
-}
-
-export const coverById: Record<string, Media> = {
-  [media.capaPredio.id]: media.capaPredio,
-  [media.capaTodaNua.id]: media.capaTodaNua,
 }
 
 if (import.meta.env.DEV) {

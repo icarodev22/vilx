@@ -1,4 +1,5 @@
 import { Nav } from './components/Nav'
+import { AmbientBackground } from './components/AmbientBackground'
 import { Intro } from './components/intro/Intro'
 import { Historia } from './sections/Historia'
 import { Lancamentos } from './sections/Lancamentos'
@@ -14,6 +15,7 @@ export default function App() {
   useParallax()
   return (
     <>
+      <AmbientBackground />
       <a className="skip" href="#historia">
         Pular abertura
       </a>
