@@ -1,0 +1,185 @@
+/* Só os players oficiais: nenhuma moldura promocional em volta. */
+.players {
+  --pl-r: var(--r, 16px);
+  position: relative;
+}
+
+.players__strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.players__item {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.players__n {
+  font-size: 20px;
+  line-height: 1;
+  color: var(--red);
+}
+
+.players__frame {
+  border-radius: var(--pl-r);
+  overflow: hidden;
+  /* cor do próprio player do Spotify enquanto ele carrega */
+  background: #282828;
+  height: 352px;
+}
+
+.players__frame iframe {
+  display: block;
+  border: 0;
+}
+
+.players__open {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  font-size: 14px;
+  font-weight: 520;
+  color: var(--mute);
+  text-decoration: none;
+  transition: color 0.25s var(--ease-out);
+}
+
+.players__open:hover,
+.players__open:focus-visible {
+  color: var(--bone);
+}
+
+/* ---------- celular e tablet: carrossel, um player por vez ---------- */
+
+.players--carousel .players__strip {
+  display: flex;
+  gap: 12px;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 4px 0 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  outline: none;
+}
+
+.players--carousel .players__strip::-webkit-scrollbar {
+  display: none;
+}
+
+.players--carousel .players__strip:focus-visible .players__item.is-current .players__frame {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.players--carousel .players__item {
+  flex: 0 0 min(84vw, 460px);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  opacity: 0.45;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+/* respiro nas pontas: o item do meio sempre centraliza */
+.players--carousel .players__item[data-slot='0'] {
+  margin-left: calc((100vw - min(84vw, 460px)) / 2);
+}
+
+.players--carousel .players__item[data-slot='2'] {
+  margin-right: calc((100vw - min(84vw, 460px)) / 2);
+}
+
+.players--carousel .players__item.is-current {
+  opacity: 1;
+}
+
+.players__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+.players__nav > button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(243, 236, 228, 0.07);
+  color: var(--bone);
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    color 0.3s,
+    transform 0.3s var(--ease-out);
+}
+
+.players__nav > button:hover {
+  background: var(--bone);
+  color: #0b0304;
+}
+
+.players__nav > button:active {
+  transform: scale(0.92);
+}
+
+.players__nav svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.players__dots {
+  display: flex;
+  gap: 4px;
+}
+
+/* área de toque de 32px, indicador visual pequeno */
+.players__dots button {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.players__dots button::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(243, 236, 228, 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.4s var(--ease-out),
+    background 0.3s;
+}
+
+.players__dots button.is-on::after {
+  width: 20px;
+  background: var(--red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .players--carousel .players__item,
+  .players__dots button::after {
+    transition: none;
+  }
+}

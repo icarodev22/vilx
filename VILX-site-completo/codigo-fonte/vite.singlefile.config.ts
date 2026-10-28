@@ -1,0 +1,15 @@
+// Build alternativo: gera um único dist-single/index.html com tudo embutido.
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { viteSingleFile } from 'vite-plugin-singlefile'
+
+export default defineConfig({
+  plugins: [react(), viteSingleFile()],
+  build: {
+    outDir: 'dist-single',
+    target: 'es2020',
+    assetsInlineLimit: 100_000_000,
+    cssCodeSplit: false,
+    chunkSizeWarningLimit: 100_000,
+  },
+})
